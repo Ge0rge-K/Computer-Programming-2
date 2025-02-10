@@ -62,9 +62,9 @@ def main():
 
 while True:
     main()
-    play_again = input("Do you want to play again? (yes/no): ").strip().lower()
+    play_again = input("Do you want to play again? (Yes/No): ").strip().lower()
     if play_again != "yes":
-        print("Thanks for playing! Goodbye!")
+        print("Bye!")
         break
 
 
