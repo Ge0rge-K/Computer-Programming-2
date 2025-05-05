@@ -6,19 +6,18 @@ def typewriter(text):
         sys.stdout.flush()
         time.sleep(0.05)
 
-typewriter("My name is Simon Claw... \n")
+typewriter("Bingo Bango Tralala... \n")
 
 
 from ascii_magic import AsciiArt
 from PIL import Image
 
-Claw = Image.open("/workspaces/Computer-Programming-2/simonclaw.jpeg")
+Claw = Image.open("/workspaces/Computer-Programming-2/image copy 3.png")
 
-# Convert to ASCII and print to terminal
 ascii_art = AsciiArt.from_pillow_image(Claw)
 ascii_art.to_terminal()
 
 #Blurb /workspaces/Computer-Programming-2/image copy.png
 #Zoe /workspaces/Computer-Programming-2/image.png
-
+# Bobidilo /workspaces/Computer-Programming-2/image copy 2.png
 
