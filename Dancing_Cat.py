@@ -18,6 +18,7 @@ Claw = Image.open("/workspaces/Computer-Programming-2/simonclaw.jpeg")
 ascii_art = AsciiArt.from_pillow_image(Claw)
 ascii_art.to_terminal()
 
-
+#Blurb /workspaces/Computer-Programming-2/image copy.png
+#Zoe /workspaces/Computer-Programming-2/image.png
 
 
