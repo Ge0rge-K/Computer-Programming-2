@@ -1,3 +1,24 @@
+import time, sys
+
+def typewriter(text):
+    for char in text:
+        sys.stdout.write(char)
+        sys.stdout.flush()
+        time.sleep(0.05)
+
+
+from ascii_magic import AsciiArt
+from PIL import Image
+
+Image = Image.open("/workspaces/Computer-Programming-2/download.jpg")
+
+ascii_art = AsciiArt.from_pillow_image(Image)
+ascii_art.to_terminal()
+
+#Blurb /workspaces/Computer-Programming-2/image copy.png
+#Zoe /workspaces/Computer-Programming-2/image.png
+# Bobidilo /workspaces/Computer-Programming-2/image copy 2.png
+
 import random
 import time
 
@@ -5,7 +26,7 @@ import time
 def create_player():
     return {
         'health': 100,
-        'ammo': 50,
+        'ammo': 10,
         'inventory': {'food': 2},
         'money': 50,
         'alive': True,
@@ -159,21 +180,7 @@ def semi_auto_rifle_shoot(player, animal, semi_auto_rifle):
     return True
 
 # Function for falling tree animation
-def falling_tree_animation():
-    trees = [
-        "   ||  ",
-        "   ||  ",
-        "   ||  ",
-        "   ||  ",
-        "   ||  ",
-        "   ||  ",
-        "  /||\\ ",
-        "   ||  ",
-        "   ||  ",
-        "   ||  "
-    ]
-    for tree in trees:
-        print(tree)
+Image = Image.open("/workspaces/Computer-Programming-2/download.jpg")
 
 # Function to handle the bear's turn
 def bear_turn(player, animal):
