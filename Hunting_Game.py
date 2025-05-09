@@ -1,4 +1,15 @@
 import time, sys
+import random
+from ascii_magic import AsciiArt
+from PIL import Image as PILImage
+
+# Display initial ASCII art
+try:
+    img = PILImage.open("/workspaces/Computer-Programming-2/download.jpg")
+    ascii_art = AsciiArt.from_pillow_image(img)
+    ascii_art.to_terminal()
+except FileNotFoundError:
+    print("Image file not found. Skipping ASCII art.")
 
 def typewriter(text):
     for char in text:
@@ -6,21 +17,16 @@ def typewriter(text):
         sys.stdout.flush()
         time.sleep(0.05)
 
-
-from ascii_magic import AsciiArt
-from PIL import Image
-
-Image = Image.open("/workspaces/Computer-Programming-2/download.jpg")
-
-ascii_art = AsciiArt.from_pillow_image(Image)
-ascii_art.to_terminal()
-
-#Blurb /workspaces/Computer-Programming-2/image copy.png
-#Zoe /workspaces/Computer-Programming-2/image.png
-# Bobidilo /workspaces/Computer-Programming-2/image copy 2.png
-
-import random
-import time
+# Function for falling tree animation
+def falling_tree_animation():
+    print("🌳 CRASH!")
+    try:
+        img = PILImage.open("/workspaces/Computer-Programming-2/download.jpg")
+        ascii_art = AsciiArt.from_pillow_image(img)
+        ascii_art.to_terminal()
+    except FileNotFoundError:
+        print("Tree image not found. Imagine a tree falling!")
+    time.sleep(0.5)
 
 # Player attributes stored in a dictionary
 def create_player():
@@ -67,7 +73,7 @@ def buy_item(player, item, cost):
     if player['money'] >= cost:
         player['money'] -= cost
         if item == 'ammo':
-            player['ammo'] += 5
+            player['weapon_ammo'] += 5
         elif item == 'food':
             player['inventory']['food'] += 1
         elif item == 'm60':
@@ -103,25 +109,24 @@ def animal_attack(animal):
 def shoot(player, animal):
     print(f"Attempting to shoot the {animal['name']} with {player['weapon']}...")
     if player['weapon'] == 'pistol':
-        if player['ammo'] <= 0:
+        if player['weapon_ammo'] <= 0:
             print("Out of ammo! Visit the shop to buy more.")
             return False
 
-        player['ammo'] -= 1
+        player['weapon_ammo'] -= 1
         print("Aiming at the animal...")
         time.sleep(1)
 
         chance_to_hit = random.randint(1, 100)
-
-        if chance_to_hit <= 50:  # 75% chance to hit
-            damage = random.randint(10, 25)  # Random damage between 10 and 25
+        if chance_to_hit <= 50:  # 50% chance to hit
+            damage = random.randint(10, 25)
             print(f"You hit the {animal['name']} for {damage} damage!")
             return animal_take_damage(animal, damage)
         else:
             print(f"You missed the {animal['name']}!")
-            print("\nTree falls with each shot...")            
-            return False
+            print("\nTree falls with each shot...")
             falling_tree_animation()
+            return False
 
     elif player['weapon'] == 'm60':
         m60 = {
@@ -141,46 +146,40 @@ def shoot(player, animal):
 
 # Function for shooting with M60
 def m60_shoot(player, animal, m60):
-    if m60['ammo'] < m60['bullets_per_shot']:
+    if player['weapon_ammo'] < m60['bullets_per_shot']:
         print("Not enough ammo for a full burst! Visit the shop to buy more.")
         return False
 
-    m60['ammo'] -= m60['bullets_per_shot']
+    player['weapon_ammo'] -= m60['bullets_per_shot']
     print("Firing the M60...")
-
     time.sleep(1)
 
     total_damage = 0
     for _ in range(m60['bullets_per_shot']):
-        if random.randint(1, 100) <= m60['accuracy']:  # 50% chance to hit each bullet
+        if random.randint(1, 100) <= m60['accuracy']:
             total_damage += m60['damage_per_bullet']
     print(f"You hit the {animal['name']} for {total_damage} total damage with the M60!")
     return animal_take_damage(animal, total_damage)
 
 # Function for shooting with Semi-Auto Rifle
 def semi_auto_rifle_shoot(player, animal, semi_auto_rifle):
-    if semi_auto_rifle['ammo'] <= 0:
+    if player['weapon_ammo'] <= 0:
         print("Out of ammo for the Semi-Auto Rifle! Visit the shop to buy more.")
         return False
 
-    semi_auto_rifle['ammo'] -= 20
+    player['weapon_ammo'] -= 20
     print("Firing the Semi-Auto Rifle... BANG!")
     time.sleep(1)
 
     if random.randint(1, 100) <= semi_auto_rifle['accuracy']:
         total_damage = semi_auto_rifle['damage_per_bullet']
         print(f"You hit the {animal['name']} for {total_damage} damage with the Semi-Auto Rifle!")
-        animal_take_damage(animal, total_damage)
+        return animal_take_damage(animal, total_damage)
     else:
         print("You missed!")
-
-    print("\nTree falls with each shot...")
-    falling_tree_animation()
-
-    return True
-
-# Function for falling tree animation
-Image = Image.open("/workspaces/Computer-Programming-2/download.jpg")
+        print("\nTree falls with each shot...")
+        falling_tree_animation()
+        return False
 
 # Function to handle the bear's turn
 def bear_turn(player, animal):
@@ -191,7 +190,7 @@ def bear_turn(player, animal):
 
 # Function to display the player's status
 def show_status(player):
-    print(f"\nPlayer Health: {player['health']} | Ammo: {player['ammo']} | Money: {player['money']}")
+    print(f"\nPlayer Health: {player['health']} | Ammo: {player['weapon_ammo']} | Money: {player['money']}")
     print(f"Food: {player['inventory'].get('food', 0)} | Weapon: {player['weapon']} ({player['weapon_ammo']} ammo)")
 
 # Function shop menu
@@ -223,8 +222,12 @@ def encounter_animal(player):
         create_animal('Deer', 'Tier 1', 10, 30, 5),
         create_animal('Raccoon', 'Tier 1', 15, 20, 4),
         create_animal('Coyote', 'Tier 2', 25, 40, 7),
-        create_animal('Bear', 'Tier 3', 50, 50, 15),
+        create_animal('Polar Bear', 'Tier 3', 250, 250, 80),
+        create_animal('Honey Badger', 'Tier 3', 200, 80, 75),
+        create_animal('Bear', 'Tier 3', 100, 125, 45),
         create_animal('Moose', 'Tier 3', 60, 70, 20),
+        create_animal('Dragon', 'Tier 5', 500, 1000, 65),
+        create_animal('Gigantopithecus', 'Tier 4', 200, 200, 2),
         create_animal('Bird', 'Tier 1', 5, 10, 2)
     ]
     animal = random.choice(animals)
@@ -233,6 +236,15 @@ def encounter_animal(player):
 
 # Main game loop
 def game_loop():
+    # Display welcome image
+    try:
+        img = PILImage.open("/workspaces/Computer-Programming-2/Hunting_Game_Cover.png")
+        ascii_art = AsciiArt.from_pillow_image(img)
+        ascii_art.to_terminal()
+        print("Welcome to Wilderness Hunt Game!")
+    except FileNotFoundError:
+        print("Welcome image not found. Starting the game...")
+
     print("Game script is running...")
     player = create_player()
 
@@ -263,18 +275,17 @@ def game_loop():
         else:
             bear_turn(player, animal)
 
-        if player['kills'] >= 3:
-            print("You've killed 3 animals.")
-            print("Would you like to buy anything? (yes/no)")
-            buy_choice = input().lower()
-            if buy_choice == 'yes':
-                shop(player)
-            else:
-                print("Do you want to leave the forest? (yes/no)")
-                leave_choice = input().lower()
-                if leave_choice == 'yes':
-                    print("You leave the forest.")
-                    break
+        # Prompt to visit shop or leave forest after each shot
+        print("\nWould you like to visit the shop? (yes/no)")
+        buy_choice = input().lower()
+        if buy_choice == 'yes':
+            shop(player)
+        else:
+            print("Do you want to leave the forest? (yes/no)")
+            leave_choice = input().lower()
+            if leave_choice == 'yes':
+                print("You leave the forest.")
+                break
 
     print("Game Over! You died.")
 
