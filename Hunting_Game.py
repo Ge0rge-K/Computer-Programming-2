@@ -149,11 +149,11 @@ def create_player():
     return {
         'health': 100,
         'ammo': 10,
-        'inventory': {'food': 2},
-        'money': 50,
+        'inventory': {'food': 5},
+        'money': 250,
         'alive': True,
         'weapon': Pistol(),
-        'weapon_ammo': 5,
+        'weapon_ammo': 24,
         'money_found': 500,
         'kills': 0
     }
@@ -327,12 +327,17 @@ def game_loop():
         buy_choice = input().lower()
         if buy_choice == 'yes':
             shop(player)
-        else:
-            print("Do you want to leave the forest? (yes/no)")
-            leave_choice = input().lower()
-            if leave_choice == 'yes':
-                print("You safely leave the forest.")
-                break
+        
+        print("\nWould you like to eat 1 food (heal)? (yes/no)")
+        heal_choice = input().lower()
+        if heal_choice == 'yes':
+            heal(player)
+        
+        print("Do you want to leave the forest? (yes/no)")
+        leave_choice = input().lower()
+        if leave_choice == 'yes':
+            print("You safely leave the forest.")
+            break
     if not is_alive(player):
         print("Game Over! You died.")
     else:
