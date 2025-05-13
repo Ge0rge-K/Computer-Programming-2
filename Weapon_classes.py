@@ -1,24 +1,61 @@
-class weapon:
-    # Class attribute
-
-    # Instance attributes
-    def __init__(weapon, name, ammo, damage, ):
+class Human:
+    def __init__(self, name, sleep, eating, drinking):
         self.name = name
-        self.age = age
+        self.is_asleep = sleep
+        self.is_eating = eating
+        self.is_drinking = drinking
+    
+    def eat(self):
+        print(f"{self.name} is eating...")
 
-    # Instance method
-    def bark(self):
-        return "Woof!"
 
-    # Another instance method
-    def description(self):
-        return f"{self.name} is {self.age} years old"
+class Animal:
+    def __init__(self, name):
+        self.name = name
+        self.is_alive = True
+    
+    def eat(self):
+        print(f"{self.name} is eating... ")
+    
+    def sleep(self):
+        print(f"{self.name} is not sleeping...")
 
-# Creating instances (objects) of the Dog class
-buddy = Dog("Buddy", 3)
-miles = Dog("Miles", 5)
+class Dog(Animal):
+        def __init__(self, name):
+        self.name = name
+        self.is_alive = True
+    
+    def eat(self):
+        print(f"{self.name} is not eating... ")
+    
+    def sleep(self):
+        print(f"{self.name} is sleeping...")
 
-# Accessing attributes and methods
-print(f"{buddy.name}'s species is {buddy.species}") # Output: Buddy's species is Canis familiaris
-print(miles.description()) # Output: Miles is 5 years old
-print(buddy.bark()) # Output: Woof!
+class Cat(Animal):
+        def __init__(self, name):
+        self.name = name
+        self.is_alive = True
+    
+    def eat(self):
+        print(f"{self.name} is eating... ")
+    
+    def sleep(self):
+        print(f"{self.name} is not asleep...")
+
+class Hampster(Animal):
+        def __init__(self, name):
+        self.name = name
+        self.is_alive = True
+    
+    def eat(self):
+        print(f"{self.name} is not eating... ")
+    
+    def sleep(self):
+        print(f"{self.name} is Awake...")
+
+dog = Dog("Lula")
+cat = Cat("Scoobert")
+hampster = Hampster("Pine Cone")
+
+print(dog.name)
+print(dog.is_alive)
