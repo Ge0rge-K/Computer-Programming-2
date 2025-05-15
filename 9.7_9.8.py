@@ -9,9 +9,9 @@ class User:
 
 # Privileges class
 class Privileges:
-    def __init__(self, privileges=None):
-        if privileges is None:
-            privileges = ["can add post", "can delete post", "can ban user"]
+    def __init__(self, privileges=True):
+        if privileges is True:
+            privileges = ["can timout post", "can delete post", "can ban user", "can make others admin"]
         self.privileges = privileges
 
     def show_privileges(self):
@@ -26,6 +26,6 @@ class Admin(User):
         self.privileges = Privileges()
 
 # Test
-admin_user = Admin("Bob", "Johnson")
+admin_user = Admin("George", "Koniaris")
 admin_user.describe_user()
 admin_user.privileges.show_privileges()
