@@ -1,1 +1,0 @@
-I learned how to use strings dictionaries lists functions classes inheritence slicing and more.

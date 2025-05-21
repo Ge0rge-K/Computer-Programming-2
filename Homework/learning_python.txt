@@ -1,0 +1,5 @@
+In python you can create classes and you can also inherit from one class to another
+In python you can fetch information from APIs and other sources
+In python you can execute code from a gist with execute
+In python you can ask the user questions and make games
+In python you can create dicitonaries and lists and fetch items from it

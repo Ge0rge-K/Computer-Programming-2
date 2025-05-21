@@ -1,4 +1,4 @@
-class Human:
+class Animal:
     def __init__(self, name, sleep, eating, drinking):
         self.name = name
         self.is_asleep = sleep
@@ -53,9 +53,21 @@ class Hampster(Animal):
     def sleep(self):
         print(f"{self.name} is Awake...")
 
-dog = Dog("Lula")
-cat = Cat("Scoobert")
-hampster = Hampster("Pine Cone")
+class Monkey(Animal):
+      def __init__(self, name):
+        self.name = name
+        self.is_alive = True
+    
+    def eat(self):
+      print(f"{self.name} is eating...")
+    
+    def sleep(self):
+      print(f"{self.name} is not asleep")
+
+Dog = Dog("Lula")
+Cat = Cat("Scoobert")
+Hampster = Hampster("Pine Cone")
+Monkey = Monkey("Albert")
 
 print(dog.name)
 print(dog.is_alive)

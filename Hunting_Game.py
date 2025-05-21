@@ -293,7 +293,7 @@ def game_loop():
         print("Welcome to Wilderness Hunt Game!")
     except FileNotFoundError:
         print("Welcome image not found. Starting the game...")
-    print("Game script is running...")
+    print("Game loop is running...")
     player = create_player()
     print("You find a Semi-Auto Rifle with 100 rounds of ammo. Do you want to pick it up?")
     choice = input("Enter 'yes' to pick up the Semi-Auto Rifle or 'no' to leave it: ").lower()
