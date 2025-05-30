@@ -10,11 +10,6 @@ try:
 except FileNotFoundError:
     print("Image file not found. Skipping ASCII art.")
 
-def typewriter(text):
-    for char in text:
-        sys.stdout.write(char)
-        sys.stdout.flush()
-        time.sleep(0.05)
 
 def falling_tree_animation():
     print("🌳 CRASH!")
